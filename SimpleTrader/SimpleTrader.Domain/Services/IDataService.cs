@@ -8,7 +8,7 @@ namespace SimpleTrader.Domain.Services
     public interface IDataService<T>
     {
         Task<IEnumerable<T>> GetAll();
-        Task<T> GetId(int id);
+        Task<T> Get(int id);
 
         Task<T> Create(T entity);
 

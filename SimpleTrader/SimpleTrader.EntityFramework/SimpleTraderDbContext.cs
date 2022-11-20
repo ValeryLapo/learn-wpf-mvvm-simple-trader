@@ -6,15 +6,16 @@ using SimpleTrader.Domain.Models;
 
 namespace SimpleTrader.EntityFramework
 {
+    //This class is going to manage out inner action
+    //with the database with Entity Framework
     public class SimpleTraderDbContext : DbContext
     {
-        //This class is going to manage out inner action
-        //with the database with Entity Framework
-
         public DbSet<User> Users { get; set; }
         public DbSet<Account> Accounts { get; set; }
 
         public DbSet<AssetTransaction> AssetTransactions { get; set; }
+
+        public SimpleTraderDbContext(DbContextOptions options) : base(options) { }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -23,14 +24,6 @@ namespace SimpleTrader.EntityFramework
             modelBuilder.Entity<AssetTransaction>().OwnsOne(a => a.Stock);
 
             base.OnModelCreating(modelBuilder);
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            //this method only available with sqlserver nuget package
-            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=SimpleTraderDB;Trusted_Connection=True");
-
-            base.OnConfiguring(optionsBuilder);
         }
     }
 }
