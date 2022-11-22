@@ -28,7 +28,7 @@ namespace SimpleTrader.WPF.Commands
             {
                 _navigator.CurrentViewModel = viewType switch
                 {
-                    ViewType.Home => new HomeViewModel(MajorIndexViewModel.LoadMajorIndexViewModel(new MajorIndexService())),
+                    ViewType.Home => new HomeViewModel(MajorIndexListingViewModel.LoadMajorIndexViewModel(new MajorIndexService())),
                     ViewType.Portfolio => new PortfolioViewModel(),
                     _ => throw new ArgumentOutOfRangeException()
                 };
