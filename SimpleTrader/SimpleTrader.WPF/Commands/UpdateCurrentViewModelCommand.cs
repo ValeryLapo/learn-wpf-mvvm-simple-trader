@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
+using SimpleTrader.FinancialModelingPrepAPI.Services;
 using SimpleTrader.WPF.State.Navigators;
 using SimpleTrader.WPF.ViewModels;
 
@@ -27,7 +28,7 @@ namespace SimpleTrader.WPF.Commands
             {
                 _navigator.CurrentViewModel = viewType switch
                 {
-                    ViewType.Home => new HomeViewModel(),
+                    ViewType.Home => new HomeViewModel(MajorIndexViewModel.LoadMajorIndexViewModel(new MajorIndexService())),
                     ViewType.Portfolio => new PortfolioViewModel(),
                     _ => throw new ArgumentOutOfRangeException()
                 };
