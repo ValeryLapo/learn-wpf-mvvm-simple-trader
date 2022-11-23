@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using SimpleTrader.Domain.Models;
 using SimpleTrader.Domain.Services;
 
@@ -13,21 +10,14 @@ namespace SimpleTrader.FinancialModelingPrepAPI.Services
         //We will call to the API, deserialize the response to our MajorIndex
         public async Task<MajorIndex> GetMajorIndex(MajorIndexType indexType)
         {
-            using HttpClient client = new HttpClient();
+            using FinancialModelingHttpClient client = new FinancialModelingHttpClient();
 
-            string uri = "https://financialmodelingprep.com/api/v3/quote/";
-            string uriSuffix = GetUriSuffix(indexType);
-            string apikey = "?apikey=a2a9ea418386d3583ff2f6db975fa03d";
-
-            HttpResponseMessage response =
-                await client.GetAsync(string.Concat(uri,uriSuffix,apikey));
+            string uri = "quote/" + GetUriSuffix(indexType) + "?apikey=a2a9ea418386d3583ff2f6db975fa03d";
 
 
-            string jsonResponse = await response.Content.ReadAsStringAsync();
-
-            List<MajorIndex> majorIndex = JsonConvert.DeserializeObject<List<MajorIndex>>(jsonResponse);
-            majorIndex[0].Type = indexType;
-            return majorIndex[0];
+            MajorIndex majorIndex = await client.GetAsync<MajorIndex>(uri);
+            majorIndex.Type = indexType;
+            return majorIndex;
         }
 
         private string GetUriSuffix(MajorIndexType indexType)
@@ -35,9 +25,9 @@ namespace SimpleTrader.FinancialModelingPrepAPI.Services
             return indexType switch
             {
                 MajorIndexType.Apple => "AAPL",
-                MajorIndexType.Facebook => "FB",
+                MajorIndexType.Amazon => "AMZN",
                 MajorIndexType.Google => "GOOG",
-                _ => throw new ArgumentOutOfRangeException(nameof(indexType), indexType, null)
+                _ => throw new Exception("MajorIndexType does not have suffix defined")
             };
         }
     }

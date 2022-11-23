@@ -21,7 +21,7 @@ namespace SimpleTrader.EntityFramework
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //tell database that owr stock will not be an entity and will be embedded in AssetTransAction
-            modelBuilder.Entity<AssetTransaction>().OwnsOne(a => a.Stock);
+            modelBuilder.Entity<AssetTransaction>().OwnsOne(a => a.Asset);
 
             base.OnModelCreating(modelBuilder);
         }

@@ -19,14 +19,14 @@ namespace SimpleTrader.WPF.ViewModels
         }
 
 
-        private MajorIndex _facebook;
-        public MajorIndex Facebook
+        private MajorIndex _amazon;
+        public MajorIndex Amazon
         {
-            get => _facebook;
+            get => _amazon;
             set
             {
-                _facebook = value;
-                OnPropertyChanged(nameof(Facebook));
+                _amazon = value;
+                OnPropertyChanged(nameof(Amazon));
             }
         }
 
@@ -61,11 +61,11 @@ namespace SimpleTrader.WPF.ViewModels
                     Apple = task.Result;
                 }
             });
-            _majorIndexService.GetMajorIndex(MajorIndexType.Facebook).ContinueWith(task =>
+            _majorIndexService.GetMajorIndex(MajorIndexType.Amazon).ContinueWith(task =>
             {
                 if (task.Exception == null)
                 {
-                    Facebook = task.Result;
+                    Amazon = task.Result;
                 }
             });
             _majorIndexService.GetMajorIndex(MajorIndexType.Google).ContinueWith(task =>

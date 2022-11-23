@@ -21,7 +21,7 @@
                 Grid.Row="0"
                 FontSize="18"
                 HorizontalAlignment="Center"
-                Text="{Binding Type, FallbackValue=Name}"/>
+                Text="{Binding Name, FallbackValue=Name}"/>
 
             <Grid
                 Grid.Row="1"
