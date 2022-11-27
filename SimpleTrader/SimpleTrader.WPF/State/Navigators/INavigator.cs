@@ -3,7 +3,7 @@ using SimpleTrader.WPF.ViewModels;
 
 namespace SimpleTrader.WPF.State.Navigators
 {
-    enum ViewType
+    public enum ViewType
     {
         Home,
         Portfolio
