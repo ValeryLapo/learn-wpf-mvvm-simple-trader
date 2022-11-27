@@ -45,7 +45,7 @@ namespace SimpleTrader.WPF
             //three ways of adding service
             //1. Singleton - one service per application
             //2. Transient - different instance everytime
-            //3. Scoped - one instace per "scope"
+            //3. Scoped - one instance per "scope"
 
             services.AddSingleton<IStockPriceService, StockPriceService>();
             services.AddSingleton<IDataService<Account>, AccountDataService>();
@@ -53,15 +53,14 @@ namespace SimpleTrader.WPF
             services.AddSingleton<IBuyStockService, BuyStockService>();
             services.AddSingleton<IMajorIndexService, MajorIndexService>();
 
-
-
             //The reason we not making it singleton because ViewModel has state
             //It keeps track of things. 
             services.AddScoped<MainViewModel>();
+            services.AddScoped<BuyViewModel>();
             services.AddScoped<INavigator, Navigator>();
 
             //We Want to register as much as possible with our Dependency Injection Container
-            services.AddSingleton<ISimpleTraderViewModelAbstractFactory, SimpleTraderViewModelAbstractFactory>();
+            services.AddSingleton<ISimpleTraderViewModelAbstractFactory, RootSimpleTraderViewModelFactory>();
             services.AddSingleton<ISimpleTraderViewModelFactory<HomeViewModel>, HomeViewModelFactory>();
             services.AddSingleton<ISimpleTraderViewModelFactory<PortfolioViewModel>, PortfolioViewModelFactory>();
             services.AddSingleton<ISimpleTraderViewModelFactory<MajorIndexListingViewModel>, MajorIndexListingViewModelFactory>();

@@ -55,7 +55,10 @@
                 CommandParameter="{x:Static nav:ViewType.Portfolio}"/>
             <RadioButton
                 Grid.Column="2"
-                Content="Buy"/>
+                Content="Buy"
+                IsChecked="{Binding CurrentViewModel,Converter={StaticResource EqualValueToParameterConverter}, ConverterParameter={x:Type vm:BuyViewModel}, Mode=OneWay}"
+                Command="{Binding UpdateCurrentViewModelCommand}"
+                CommandParameter="{x:Static nav:ViewType.Buy}"/>
             <RadioButton
                 Grid.Column="3"
                 Content="Cell"/>
