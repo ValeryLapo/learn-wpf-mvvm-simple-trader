@@ -3,6 +3,7 @@ using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleTrader.Domain.Models;
 using SimpleTrader.Domain.Services;
+using SimpleTrader.Domain.Services.AuthenticationServices;
 using SimpleTrader.Domain.Services.TransactionServices;
 using SimpleTrader.EntityFramework;
 using SimpleTrader.EntityFramework.Services;
@@ -22,6 +23,8 @@ namespace SimpleTrader.WPF
         {
             IServiceProvider serviceProvider = CreateServiceProvider();
 
+            IAuthenticationService authentication = serviceProvider.GetRequiredService<IAuthenticationService>();
+            authentication.Register("test@gmail.com", "Valera", "Test123", "Test123");
             //GetService - returns null if service not found.
             //GetRequiredService - throws and Exception if service not found
 
@@ -48,6 +51,7 @@ namespace SimpleTrader.WPF
             //3. Scoped - one instance per "scope"
 
             services.AddSingleton<IStockPriceService, StockPriceService>();
+            services.AddSingleton<IAuthenticationService, AuthenticationService>();
             services.AddSingleton<IDataService<Account>, AccountDataService>();
             services.AddSingleton<SimpleTraderDbContextFactory>();
             services.AddSingleton<IBuyStockService, BuyStockService>();
