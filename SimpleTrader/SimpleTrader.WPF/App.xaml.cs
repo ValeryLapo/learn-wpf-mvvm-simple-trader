@@ -23,8 +23,7 @@ namespace SimpleTrader.WPF
         protected override async void OnStartup(StartupEventArgs e)
         {
             IServiceProvider serviceProvider = CreateServiceProvider();
-            IAuthenticationService authentication = serviceProvider.GetRequiredService<IAuthenticationService>();
-            authentication.Login( "Valera", "Test123");
+
             //GetService - returns null if service not found.
             //GetRequiredService - throws and Exception if service not found
 

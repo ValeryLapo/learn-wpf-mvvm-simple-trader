@@ -1,27 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Text;
+
 
 namespace SimpleTrader.Domain.Exceptions
 {
-    internal class InvalidPasswordException : Exception
+    public class InvalidPasswordException : Exception
     {
         public string Password { get; set; }
         public string Username{ get; set; }
-        public InvalidPasswordException(string password, string username)
+        public InvalidPasswordException(string username, string password)
         {
             Password = password;
             Username = username;
         }
 
-        public InvalidPasswordException(string password, string username, string message) : base(message)
+        public InvalidPasswordException(string username, string password, string message) : base(message)
         {
             Password = password;
             Username = username;
         }
 
-        public InvalidPasswordException(string password, string username, string message, Exception innerException) : base(message, innerException)
+        public InvalidPasswordException(string username, string password, string message, Exception innerException) : base(message, innerException)
         {
             Password = password;
             Username = username;
