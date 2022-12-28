@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using Microsoft.AspNet.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleTrader.Domain.Models;
 using SimpleTrader.Domain.Services;
@@ -22,9 +23,8 @@ namespace SimpleTrader.WPF
         protected override async void OnStartup(StartupEventArgs e)
         {
             IServiceProvider serviceProvider = CreateServiceProvider();
-
             IAuthenticationService authentication = serviceProvider.GetRequiredService<IAuthenticationService>();
-            authentication.Register("test@gmail.com", "Valera", "Test123", "Test123");
+            authentication.Login( "Valera", "Test123");
             //GetService - returns null if service not found.
             //GetRequiredService - throws and Exception if service not found
 
@@ -53,9 +53,12 @@ namespace SimpleTrader.WPF
             services.AddSingleton<IStockPriceService, StockPriceService>();
             services.AddSingleton<IAuthenticationService, AuthenticationService>();
             services.AddSingleton<IDataService<Account>, AccountDataService>();
+            services.AddSingleton<IAccountService, AccountDataService>();
             services.AddSingleton<SimpleTraderDbContextFactory>();
             services.AddSingleton<IBuyStockService, BuyStockService>();
             services.AddSingleton<IMajorIndexService, MajorIndexService>();
+
+            services.AddSingleton<IPasswordHasher, PasswordHasher>();
 
             //The reason we not making it singleton because ViewModel has state
             //It keeps track of things. 

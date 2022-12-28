@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using SimpleTrader.Domain.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using SimpleTrader.Domain.Exceptions;
 
 namespace SimpleTrader.Domain.Services.AuthenticationServices
 {
@@ -27,18 +29,36 @@ namespace SimpleTrader.Domain.Services.AuthenticationServices
             PasswordVerificationResult passwordResult =
                 _passwordHasher.VerifyHashedPassword(storedAccount.AccountHolder.PasswordHash, password);
 
-            if (passwordResult == PasswordVerificationResult.Success)
+            if (passwordResult != PasswordVerificationResult.Success)
             {
-                throw new Exception();
+                throw new InvalidPasswordException(username, password);
             }
 
             return storedAccount;
         }
 
-        public async Task<bool> Register(string email, string username, string password, string confirmPassword)
+        public async Task<RegistrationResult> Register(string email, string username, string password, string confirmPassword)
         {
-            bool success = false;
-            if (password == confirmPassword)
+            RegistrationResult result = RegistrationResult.Success;
+
+            if (password != confirmPassword)
+            {
+                result = RegistrationResult.PasswordDoNotMatch;
+            }
+
+            Account emailAccount = await _accountService.GetByEmail(email);
+            if (emailAccount != null)
+            {
+                result = RegistrationResult.EmailAlreadyExists;
+            }
+
+            Account usernameAccount = await _accountService.GetByUsername(username);
+            if (usernameAccount != null)
+            {
+                result = RegistrationResult.UsernameAlreadyExists;
+            }
+
+            if (result == RegistrationResult.Success)
             {
                 //the reason why are we using this nuget package is because we just don't reenventing the wheel.
                 string hashedPassword = _passwordHasher.HashPassword(password);
@@ -59,7 +79,8 @@ namespace SimpleTrader.Domain.Services.AuthenticationServices
                 await _accountService.Create(account);
             }
 
-            return success;
+
+            return result;
         }
     }
 }
