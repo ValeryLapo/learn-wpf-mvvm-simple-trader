@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SimpleTrader.FinancialModelingPrepAPI.Services;
 using SimpleTrader.WPF.State.Navigators;
 
 namespace SimpleTrader.WPF.ViewModels.Factories
 {
-    public class RootSimpleTraderViewModelFactory : ISimpleTraderViewModelAbstractFactory
+    public class RootSimpleTraderViewModelFactory : IRootSimpleTraderViewModelFactory
     {
         private readonly ISimpleTraderViewModelFactory<HomeViewModel> _homeViewModelFactory;
         private readonly ISimpleTraderViewModelFactory<PortfolioViewModel> _portfolioViewModelFactory;

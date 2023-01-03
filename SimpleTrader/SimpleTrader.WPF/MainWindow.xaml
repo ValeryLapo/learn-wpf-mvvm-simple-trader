@@ -22,9 +22,7 @@
                     </Style.Triggers>
                 </Style>
             </Grid.Style>
-            <controls:NavigationBar
-            
-            DataContext="{Binding Navigator}"/>
+            <controls:NavigationBar/>
         </Grid>
 
         <ScrollViewer 

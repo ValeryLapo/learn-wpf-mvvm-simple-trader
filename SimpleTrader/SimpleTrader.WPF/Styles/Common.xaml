@@ -25,9 +25,9 @@
         </Setter>
     </Style>
 
-    <Style TargetType="TextBox" BasedOn="{StaticResource TextBoxBase}" />
-    <Style TargetType="PasswordBox" BasedOn="{StaticResource TextBoxBase}" />
-    
+    <Style BasedOn="{StaticResource TextBoxBase}" TargetType="TextBox" />
+    <Style BasedOn="{StaticResource TextBoxBase}" TargetType="PasswordBox" />
+
     <!--  Buttons  -->
     <Style TargetType="Button">
         <Setter Property="Background" Value="{StaticResource BrushPrimary2}" />

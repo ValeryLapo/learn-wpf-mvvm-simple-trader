@@ -68,11 +68,14 @@ namespace SimpleTrader.WPF
             services.AddScoped<IAuthenticator, Authenticator>();
 
             //We Want to register as much as possible with our Dependency Injection Container
-            services.AddSingleton<ISimpleTraderViewModelAbstractFactory, RootSimpleTraderViewModelFactory>();
+            services.AddSingleton<IRootSimpleTraderViewModelFactory, RootSimpleTraderViewModelFactory>();
             services.AddSingleton<ISimpleTraderViewModelFactory<HomeViewModel>, HomeViewModelFactory>();
             services.AddSingleton<ISimpleTraderViewModelFactory<PortfolioViewModel>, PortfolioViewModelFactory>();
             services.AddSingleton<ISimpleTraderViewModelFactory<MajorIndexListingViewModel>, MajorIndexListingViewModelFactory>();
-            services.AddSingleton<ISimpleTraderViewModelFactory<LoginViewModel>, LoginViewModelFactory>();
+            services.AddSingleton<ISimpleTraderViewModelFactory<LoginViewModel>, LoginViewModelFactory>((services) => 
+                new LoginViewModelFactory(services.GetRequiredService<IAuthenticator>(), 
+                    new ViewModelFactoryRenavigator<HomeViewModel>(services.GetRequiredService<INavigator>(),
+                        services.GetRequiredService<ISimpleTraderViewModelFactory<HomeViewModel>>())));
 
             services.AddScoped<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>()));
 
