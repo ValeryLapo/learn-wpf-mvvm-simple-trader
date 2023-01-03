@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows;
-using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleTrader.Domain.Models;
 using SimpleTrader.Domain.Services;
@@ -58,7 +58,7 @@ namespace SimpleTrader.WPF
             services.AddSingleton<IBuyStockService, BuyStockService>();
             services.AddSingleton<IMajorIndexService, MajorIndexService>();
 
-            services.AddSingleton<IPasswordHasher, PasswordHasher>();
+            services.AddSingleton<IPasswordHasher<string>, PasswordHasher<string>>();
 
             //The reason we not making it singleton because ViewModel has state
             //It keeps track of things. 

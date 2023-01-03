@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using SimpleTrader.Domain.Models;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
 using SimpleTrader.Domain.Exceptions;
 
 namespace SimpleTrader.Domain.Services.AuthenticationServices
@@ -10,8 +9,8 @@ namespace SimpleTrader.Domain.Services.AuthenticationServices
     public class AuthenticationService : IAuthenticationService
     {
         private readonly IAccountService _accountService;
-        private readonly IPasswordHasher _passwordHasher;
-        public AuthenticationService(IAccountService accountService, IPasswordHasher passwordHasher)
+        private readonly IPasswordHasher<string> _passwordHasher;
+        public AuthenticationService(IAccountService accountService, IPasswordHasher<string> passwordHasher)
         {
             _accountService = accountService;
             _passwordHasher = passwordHasher;
@@ -32,7 +31,7 @@ namespace SimpleTrader.Domain.Services.AuthenticationServices
             }
 
             PasswordVerificationResult passwordResult =
-                _passwordHasher.VerifyHashedPassword(storedAccount.AccountHolder.PasswordHash, password);
+                _passwordHasher.VerifyHashedPassword(storedAccount.AccountHolder.Username, storedAccount.AccountHolder.PasswordHash, password);
 
             if (passwordResult != PasswordVerificationResult.Success)
             {
@@ -66,7 +65,7 @@ namespace SimpleTrader.Domain.Services.AuthenticationServices
             if (result == RegistrationResult.Success)
             {
                 //the reason why are we using this nuget package is because we just don't reenventing the wheel.
-                string hashedPassword = _passwordHasher.HashPassword(password);
+                string hashedPassword = _passwordHasher.HashPassword(username, password);
 
                 User user = new User()
                 {

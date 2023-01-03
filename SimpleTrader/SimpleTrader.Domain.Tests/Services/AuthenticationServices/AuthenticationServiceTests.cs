@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Moq;
 using NUnit.Framework;
 using SimpleTrader.Domain.Models;
@@ -13,7 +13,7 @@ namespace SimpleTrader.Domain.Tests.Services.AuthenticationServices
     [TestFixture]
     public class AuthenticationServiceTests
     {
-        private Mock<IPasswordHasher> _mockPasswordHasher;
+        private Mock<IPasswordHasher<string>> _mockPasswordHasher;
         private Mock<IAccountService> _mockAccountService;
         private AuthenticationService _authenticationService;
 
@@ -22,7 +22,7 @@ namespace SimpleTrader.Domain.Tests.Services.AuthenticationServices
         public void SetUp()
         {
             _mockAccountService = new Mock<IAccountService>();
-            _mockPasswordHasher = new Mock<IPasswordHasher>();
+            _mockPasswordHasher = new Mock<IPasswordHasher<string>>();
             _authenticationService = new AuthenticationService(_mockAccountService.Object, _mockPasswordHasher.Object);
 
         }
@@ -40,7 +40,7 @@ namespace SimpleTrader.Domain.Tests.Services.AuthenticationServices
 
             _mockAccountService.Setup(s => s.GetByUsername(expectedUsername)).ReturnsAsync(new Account() {AccountHolder = new User() {Username = expectedUsername}});
             //Since we are not testing password hashing, we mock/pre-define the password hash result.
-            _mockPasswordHasher.Setup(s => s.VerifyHashedPassword(It.IsAny<string>(), password)).Returns(PasswordVerificationResult.Success);
+            _mockPasswordHasher.Setup(s => s.VerifyHashedPassword(It.IsAny<string>(), It.IsAny<string>(), password)).Returns(PasswordVerificationResult.Success);
 
 
             //Act
@@ -65,7 +65,7 @@ namespace SimpleTrader.Domain.Tests.Services.AuthenticationServices
 
             //Since we are not testing password hashinh, we mock/pre-define the password hash result.
 
-            _mockPasswordHasher.Setup(s => s.VerifyHashedPassword(It.IsAny<string>(), password))
+            _mockPasswordHasher.Setup(s => s.VerifyHashedPassword(It.IsAny<string>(), It.IsAny<string>(), password))
                 .Returns(PasswordVerificationResult.Failed);
 
             //Act
@@ -86,7 +86,7 @@ namespace SimpleTrader.Domain.Tests.Services.AuthenticationServices
             string password = "testpassword";
 
 
-            _mockPasswordHasher.Setup(s => s.VerifyHashedPassword(It.IsAny<string>(), password))
+            _mockPasswordHasher.Setup(s => s.VerifyHashedPassword(It.IsAny<string>(),It.IsAny<string>(), password))
                 .Returns(PasswordVerificationResult.Failed);
 
             //Act
