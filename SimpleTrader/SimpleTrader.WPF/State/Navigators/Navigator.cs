@@ -1,10 +1,11 @@
-﻿using SimpleTrader.WPF.Models;
+﻿using System;
 using SimpleTrader.WPF.ViewModels;
 
 namespace SimpleTrader.WPF.State.Navigators
 {
-    public class Navigator : ObservableObject, INavigator
+    public class Navigator : INavigator
     {
+        public event Action StateChanged;
 
         private ViewModelBase _currentViewModel;
 
@@ -14,7 +15,7 @@ namespace SimpleTrader.WPF.State.Navigators
             set
             {
                 _currentViewModel = value;
-                OnPropertyChanged(nameof(CurrentViewModel));
+                StateChanged?.Invoke();
             }
         }
     }

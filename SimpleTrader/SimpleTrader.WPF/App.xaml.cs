@@ -9,6 +9,7 @@ using SimpleTrader.Domain.Services.TransactionServices;
 using SimpleTrader.EntityFramework;
 using SimpleTrader.EntityFramework.Services;
 using SimpleTrader.FinancialModelingPrepAPI.Services;
+using SimpleTrader.WPF.State.Accounts;
 using SimpleTrader.WPF.State.Authenticators;
 using SimpleTrader.WPF.State.Navigators;
 using SimpleTrader.WPF.ViewModels;
@@ -19,9 +20,9 @@ namespace SimpleTrader.WPF
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App
     {
-        protected override async void OnStartup(StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {
             IServiceProvider serviceProvider = CreateServiceProvider();
 
@@ -64,22 +65,41 @@ namespace SimpleTrader.WPF
             //It keeps track of things. 
             services.AddScoped<MainViewModel>();
             services.AddScoped<BuyViewModel>();
-            services.AddScoped<INavigator, Navigator>();
-            services.AddScoped<IAuthenticator, Authenticator>();
+            services.AddSingleton<INavigator, Navigator>();
+            services.AddSingleton<IAuthenticator, Authenticator>();
+            services.AddSingleton<IAccountStore, AccountStore>();
 
             //We Want to register as much as possible with our Dependency Injection Container
-            services.AddSingleton<IRootSimpleTraderViewModelFactory, RootSimpleTraderViewModelFactory>();
-            services.AddSingleton<ISimpleTraderViewModelFactory<HomeViewModel>, HomeViewModelFactory>();
-            services.AddSingleton<ISimpleTraderViewModelFactory<PortfolioViewModel>, PortfolioViewModelFactory>();
-            services.AddSingleton<ISimpleTraderViewModelFactory<MajorIndexListingViewModel>, MajorIndexListingViewModelFactory>();
-            services.AddSingleton<ISimpleTraderViewModelFactory<LoginViewModel>, LoginViewModelFactory>((services) => 
-                new LoginViewModelFactory(services.GetRequiredService<IAuthenticator>(), 
-                    new ViewModelFactoryRenavigator<HomeViewModel>(services.GetRequiredService<INavigator>(),
-                        services.GetRequiredService<ISimpleTraderViewModelFactory<HomeViewModel>>())));
+            services.AddSingleton<ISimpleTraderViewModelFactory, SimpleTraderViewModelFactory>();
+            services.AddSingleton<BuyViewModel>(); 
+            services.AddSingleton<PortfolioViewModel>();
+            services.AddSingleton<HomeViewModel>(serviceProvider => new HomeViewModel(
+                MajorIndexListingViewModel.LoadMajorIndexViewModel(
+                    serviceProvider.GetRequiredService<IMajorIndexService>())));
 
+            services.AddSingleton<CreateViewModel<HomeViewModel>>((serviceProvider) =>
+            {
+                return () => serviceProvider.GetRequiredService<HomeViewModel>();
+            });
+
+            services.AddSingleton<CreateViewModel<PortfolioViewModel>>((serviceProvider) =>
+            {
+                return () => serviceProvider.GetRequiredService<PortfolioViewModel>();
+            });
+
+            services.AddSingleton<CreateViewModel<BuyViewModel>>(serviceProvider =>
+            {
+                return () => serviceProvider.GetRequiredService<BuyViewModel>();
+            });
+
+            services.AddSingleton<ViewModelRenavigator<HomeViewModel>>();
+            services.AddSingleton<CreateViewModel<LoginViewModel>>(serviceProvider =>
+            {
+                return () => new LoginViewModel(
+                    serviceProvider.GetRequiredService<IAuthenticator>(),
+                    serviceProvider.GetRequiredService<ViewModelRenavigator<HomeViewModel>>());
+            });
             services.AddScoped<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>()));
-
-
 
             return services.BuildServiceProvider();
         }
