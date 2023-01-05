@@ -8,11 +8,17 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </UserControl.Resources>
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
         <WrapPanel Grid.Row="0" HorizontalAlignment="Center">
             <TextBox Width="100" Text="{Binding Symbol, UpdateSourceTrigger=PropertyChanged}" />
             <Button
@@ -21,8 +27,25 @@
                 Content="Search" />
         </WrapPanel>
 
-        <Grid
+        <TextBlock
             Grid.Row="1"
+            Margin="0,10,0,0"
+            HorizontalAlignment="Center"
+            DataContext="{Binding ErrorMessageViewModel}"
+            Foreground="DarkRed"
+            Text="{Binding Message}"
+            Visibility="{Binding HasMessage, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <TextBlock
+            Grid.Row="2"
+            Margin="0,10,0,0"
+            HorizontalAlignment="Center"
+            DataContext="{Binding StatusMessageViewModel}"
+            Foreground="DarkGreen"
+            Text="{Binding Message}"
+            Visibility="{Binding HasMessage, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+        <Grid
+            Grid.Row="3"
             MaxWidth="550"
             Margin="0,20,0,0">
             <Grid.Style>
