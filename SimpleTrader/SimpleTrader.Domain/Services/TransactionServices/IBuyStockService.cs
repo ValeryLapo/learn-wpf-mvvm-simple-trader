@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using SimpleTrader.Domain.Models;
+﻿using SimpleTrader.Domain.Models;
+using System.Threading.Tasks;
 
 namespace SimpleTrader.Domain.Services.TransactionServices
 {

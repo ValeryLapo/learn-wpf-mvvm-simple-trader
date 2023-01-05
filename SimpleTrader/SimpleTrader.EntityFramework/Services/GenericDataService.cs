@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SimpleTrader.Domain.Models;
 using SimpleTrader.Domain.Services;
 using SimpleTrader.EntityFramework.Services.Common;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SimpleTrader.EntityFramework.Services
 {
     //this class is going to handle all of out crud operations
     //for all of our domain objects. And we wanna handle them in only 
     //one generic class
-    public class GenericDataService<T>: IDataService<T> where T : DomainObject
+    public class GenericDataService<T> : IDataService<T> where T : DomainObject
     {
         //Many people do just like this, create:
         //private readonly SimpleTraderDbContext _context; <- field
@@ -35,7 +35,7 @@ namespace SimpleTrader.EntityFramework.Services
             _nonQueryDataService = new NonQueryDataService<T>(contextFactory);
         }
 
-        public  async Task<IEnumerable<T>> GetAll()
+        public async Task<IEnumerable<T>> GetAll()
         {
             using SimpleTraderDbContext context = _contextFactory.CreateDbContext();
 
@@ -60,7 +60,7 @@ namespace SimpleTrader.EntityFramework.Services
         {
             return await _nonQueryDataService.Update(id, entity);
         }
-        
+
 
         public async Task<bool> Delete(int id)
         {

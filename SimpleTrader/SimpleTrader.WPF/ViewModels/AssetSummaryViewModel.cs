@@ -33,7 +33,7 @@ namespace SimpleTrader.WPF.ViewModels
             IEnumerable<AssetViewModel> assetViewModels = _assetStore.AssetTransactions
                 .GroupBy(t => t.Asset.Symbol)
                 .Select(g => new AssetViewModel(g.Key, g.Sum(a => a.IsPurchase ? a.ShareAmount : -a.ShareAmount)))
-                .Where(a => a.Shares >0)
+                .Where(a => a.Shares > 0)
                 .OrderByDescending(a => a.Shares)
                 .Take(3);
 

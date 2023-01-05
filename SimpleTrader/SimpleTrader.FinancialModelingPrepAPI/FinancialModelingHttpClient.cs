@@ -1,10 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using SimpleTrader.Domain.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using SimpleTrader.Domain.Exceptions;
-using SimpleTrader.FinancialModelingPrepAPI.Results;
 
 namespace SimpleTrader.FinancialModelingPrepAPI
 {
@@ -24,7 +23,7 @@ namespace SimpleTrader.FinancialModelingPrepAPI
             string jsonResponse = await response.Content.ReadAsStringAsync();
             var deserializedResponse = JsonConvert.DeserializeObject<List<T>>(jsonResponse);
 
-            if (deserializedResponse.Count==0)
+            if (deserializedResponse.Count == 0)
             {
                 throw new InvalidResponseException(uri);
             }

@@ -1,5 +1,5 @@
-﻿using System;
-using SimpleTrader.WPF.State.Navigators;
+﻿using SimpleTrader.WPF.State.Navigators;
+using System;
 
 namespace SimpleTrader.WPF.ViewModels.Factories
 {
@@ -10,8 +10,8 @@ namespace SimpleTrader.WPF.ViewModels.Factories
         private readonly CreateViewModel<LoginViewModel> _createLoginViewModel;
         private readonly CreateViewModel<BuyViewModel> _createBuyViewModel;
 
-        public SimpleTraderViewModelFactory(CreateViewModel<HomeViewModel> createHomeViewModel, 
-            CreateViewModel<PortfolioViewModel> createPortfolioViewModel, 
+        public SimpleTraderViewModelFactory(CreateViewModel<HomeViewModel> createHomeViewModel,
+            CreateViewModel<PortfolioViewModel> createPortfolioViewModel,
             CreateViewModel<LoginViewModel> createLoginViewModel,
             CreateViewModel<BuyViewModel> createBuyViewModel)
         {

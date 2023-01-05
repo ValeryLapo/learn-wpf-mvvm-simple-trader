@@ -1,14 +1,14 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Input;
-using SimpleTrader.Domain.Models;
+﻿using SimpleTrader.Domain.Models;
 using SimpleTrader.Domain.Services.TransactionServices;
 using SimpleTrader.WPF.State.Accounts;
 using SimpleTrader.WPF.ViewModels;
+using System;
+using System.Windows;
+using System.Windows.Input;
 
 namespace SimpleTrader.WPF.Commands
 {
-    public class BuyStockCommand: ICommand
+    public class BuyStockCommand : ICommand
     {
         private readonly BuyViewModel _buyViewModel;
         private readonly IBuyStockService _buyStockService;

@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-using SimpleTrader.Domain.Models;
+﻿using SimpleTrader.Domain.Models;
 using SimpleTrader.Domain.Services;
+using System;
+using System.Threading.Tasks;
 
 namespace SimpleTrader.FinancialModelingPrepAPI.Services
 {

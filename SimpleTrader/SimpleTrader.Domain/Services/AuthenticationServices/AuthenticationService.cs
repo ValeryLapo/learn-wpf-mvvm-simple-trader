@@ -1,8 +1,8 @@
-﻿using System;
-using SimpleTrader.Domain.Models;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using SimpleTrader.Domain.Exceptions;
+using SimpleTrader.Domain.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace SimpleTrader.Domain.Services.AuthenticationServices
 {

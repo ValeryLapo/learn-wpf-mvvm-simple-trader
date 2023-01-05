@@ -1,10 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using SimpleTrader.Domain.Models;
+using System.Threading.Tasks;
 
 namespace SimpleTrader.EntityFramework.Services.Common
 {

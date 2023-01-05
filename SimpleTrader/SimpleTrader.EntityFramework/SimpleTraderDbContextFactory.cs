@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Options;
 
 namespace SimpleTrader.EntityFramework
 {
-    public class SimpleTraderDbContextFactory: IDesignTimeDbContextFactory<SimpleTraderDbContext>
+    public class SimpleTraderDbContextFactory : IDesignTimeDbContextFactory<SimpleTraderDbContext>
     {
         public SimpleTraderDbContext CreateDbContext(string[] args = null)
         {

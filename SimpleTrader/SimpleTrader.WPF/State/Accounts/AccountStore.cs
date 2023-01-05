@@ -1,5 +1,5 @@
-﻿using System;
-using SimpleTrader.Domain.Models;
+﻿using SimpleTrader.Domain.Models;
+using System;
 
 namespace SimpleTrader.WPF.State.Accounts
 {

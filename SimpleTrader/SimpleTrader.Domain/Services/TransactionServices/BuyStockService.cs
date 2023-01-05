@@ -1,7 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-using SimpleTrader.Domain.Exceptions;
+﻿using SimpleTrader.Domain.Exceptions;
 using SimpleTrader.Domain.Models;
+using System;
+using System.Threading.Tasks;
 
 namespace SimpleTrader.Domain.Services.TransactionServices
 {

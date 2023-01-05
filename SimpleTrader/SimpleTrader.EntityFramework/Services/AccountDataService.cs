@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
 using SimpleTrader.Domain.Models;
 using SimpleTrader.Domain.Services;
 using SimpleTrader.EntityFramework.Services.Common;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace SimpleTrader.EntityFramework.Services
 {

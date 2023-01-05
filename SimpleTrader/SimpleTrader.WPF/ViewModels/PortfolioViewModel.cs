@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SimpleTrader.WPF.ViewModels
+﻿namespace SimpleTrader.WPF.ViewModels
 {
-    public  class PortfolioViewModel : ViewModelBase
+    public class PortfolioViewModel : ViewModelBase
     {
     }
 }

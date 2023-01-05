@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleTrader.Domain.Models;
 using SimpleTrader.Domain.Services;
@@ -15,6 +13,8 @@ using SimpleTrader.WPF.State.Authenticators;
 using SimpleTrader.WPF.State.Navigators;
 using SimpleTrader.WPF.ViewModels;
 using SimpleTrader.WPF.ViewModels.Factories;
+using System;
+using System.Windows;
 
 namespace SimpleTrader.WPF
 {
@@ -73,7 +73,7 @@ namespace SimpleTrader.WPF
 
             //We Want to register as much as possible with our Dependency Injection Container
             services.AddSingleton<ISimpleTraderViewModelFactory, SimpleTraderViewModelFactory>();
-            services.AddSingleton<BuyViewModel>(); 
+            services.AddSingleton<BuyViewModel>();
             services.AddSingleton<PortfolioViewModel>();
             services.AddSingleton<AssetSummaryViewModel>();
             services.AddSingleton<HomeViewModel>(serviceProvider => new HomeViewModel(

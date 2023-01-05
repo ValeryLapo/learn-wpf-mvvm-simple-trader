@@ -1,8 +1,8 @@
-﻿using System;
+﻿using SimpleTrader.Domain.Services;
+using SimpleTrader.WPF.ViewModels;
+using System;
 using System.Windows;
 using System.Windows.Input;
-using SimpleTrader.Domain.Services;
-using SimpleTrader.WPF.ViewModels;
 
 namespace SimpleTrader.WPF.Commands
 {
@@ -13,7 +13,7 @@ namespace SimpleTrader.WPF.Commands
 
         public SearchSymbolCommand(BuyViewModel viewModel, IStockPriceService stockPriceService)
         {
-            _buyViewModel= viewModel;
+            _buyViewModel = viewModel;
             _stockPriceService = stockPriceService;
         }
         public bool CanExecute(object parameter)

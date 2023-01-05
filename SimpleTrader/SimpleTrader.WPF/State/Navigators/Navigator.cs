@@ -1,5 +1,5 @@
-﻿using System;
-using SimpleTrader.WPF.ViewModels;
+﻿using SimpleTrader.WPF.ViewModels;
+using System;
 
 namespace SimpleTrader.WPF.State.Navigators
 {

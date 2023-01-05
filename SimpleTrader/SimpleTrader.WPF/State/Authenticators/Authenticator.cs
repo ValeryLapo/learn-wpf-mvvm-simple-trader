@@ -1,8 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-using SimpleTrader.Domain.Models;
+﻿using SimpleTrader.Domain.Models;
 using SimpleTrader.Domain.Services.AuthenticationServices;
 using SimpleTrader.WPF.State.Accounts;
+using System;
+using System.Threading.Tasks;
 
 namespace SimpleTrader.WPF.State.Authenticators
 {

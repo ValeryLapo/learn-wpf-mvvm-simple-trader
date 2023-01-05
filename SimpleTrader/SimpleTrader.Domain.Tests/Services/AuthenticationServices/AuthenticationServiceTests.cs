@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Moq;
 using NUnit.Framework;
-using SimpleTrader.Domain.Models;
 using SimpleTrader.Domain.Exceptions;
+using SimpleTrader.Domain.Models;
 using SimpleTrader.Domain.Services;
 using SimpleTrader.Domain.Services.AuthenticationServices;
 
@@ -38,7 +38,7 @@ namespace SimpleTrader.Domain.Tests.Services.AuthenticationServices
             string expectedUsername = "testuser";
             string password = "testpassword";
 
-            _mockAccountService.Setup(s => s.GetByUsername(expectedUsername)).ReturnsAsync(new Account() {AccountHolder = new User() {Username = expectedUsername}});
+            _mockAccountService.Setup(s => s.GetByUsername(expectedUsername)).ReturnsAsync(new Account() { AccountHolder = new User() { Username = expectedUsername } });
             //Since we are not testing password hashing, we mock/pre-define the password hash result.
             _mockPasswordHasher.Setup(s => s.VerifyHashedPassword(It.IsAny<string>(), It.IsAny<string>(), password)).Returns(PasswordVerificationResult.Success);
 
@@ -61,7 +61,7 @@ namespace SimpleTrader.Domain.Tests.Services.AuthenticationServices
             string password = "testpassword";
 
             _mockAccountService.Setup(s => s.GetByUsername(expectedUsername)).ReturnsAsync(new Account()
-                { AccountHolder = new User() { Username = expectedUsername } });
+            { AccountHolder = new User() { Username = expectedUsername } });
 
             //Since we are not testing password hashinh, we mock/pre-define the password hash result.
 
@@ -69,7 +69,7 @@ namespace SimpleTrader.Domain.Tests.Services.AuthenticationServices
                 .Returns(PasswordVerificationResult.Failed);
 
             //Act
-            InvalidPasswordException exception = Assert.ThrowsAsync<InvalidPasswordException>(()=> _authenticationService.Login(expectedUsername, password));
+            InvalidPasswordException exception = Assert.ThrowsAsync<InvalidPasswordException>(() => _authenticationService.Login(expectedUsername, password));
 
             //Assert
             string actualUsername = exception.Username;
@@ -86,7 +86,7 @@ namespace SimpleTrader.Domain.Tests.Services.AuthenticationServices
             string password = "testpassword";
 
 
-            _mockPasswordHasher.Setup(s => s.VerifyHashedPassword(It.IsAny<string>(),It.IsAny<string>(), password))
+            _mockPasswordHasher.Setup(s => s.VerifyHashedPassword(It.IsAny<string>(), It.IsAny<string>(), password))
                 .Returns(PasswordVerificationResult.Failed);
 
             //Act
@@ -133,7 +133,7 @@ namespace SimpleTrader.Domain.Tests.Services.AuthenticationServices
 
             RegistrationResult expected = RegistrationResult.UsernameAlreadyExists;
 
-            RegistrationResult actual = await _authenticationService.Register( It.IsAny<string>(), username,
+            RegistrationResult actual = await _authenticationService.Register(It.IsAny<string>(), username,
                 It.IsAny<string>(), It.IsAny<string>());
 
             Assert.AreEqual(expected, actual);

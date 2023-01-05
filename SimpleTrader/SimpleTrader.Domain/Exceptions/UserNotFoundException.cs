@@ -2,7 +2,7 @@
 
 namespace SimpleTrader.Domain.Exceptions
 {
-    public class UserNotFoundException: Exception
+    public class UserNotFoundException : Exception
     {
         public string Username { get; set; }
         public UserNotFoundException(string username)
