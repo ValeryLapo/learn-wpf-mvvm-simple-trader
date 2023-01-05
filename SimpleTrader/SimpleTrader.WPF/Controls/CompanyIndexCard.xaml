@@ -38,24 +38,26 @@
                     Grid.Row="0"
                     Grid.Column="0"
                     Margin="5"
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Left"
                     Text="Price" />
                 <TextBlock
                     Grid.Row="0"
                     Grid.Column="1"
                     Margin="5"
+                    HorizontalAlignment="Right"
                     Text="{Binding Price, StringFormat={}{0:c}, FallbackValue=$0.00}" />
 
                 <TextBlock
                     Grid.Row="1"
                     Grid.Column="0"
                     Margin="5"
-                    HorizontalAlignment="Right"
+                    HorizontalAlignment="Left"
                     Text="Change" />
                 <TextBlock
                     Grid.Row="1"
                     Grid.Column="1"
                     Margin="5"
+                    HorizontalAlignment="Right"
                     Text="{Binding Change, StringFormat={}{0:c}, FallbackValue=$0.00}" />
             </Grid>
 

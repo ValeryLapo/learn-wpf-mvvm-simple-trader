@@ -25,15 +25,15 @@
             </Grid.ColumnDefinitions>
             <local:CompanyIndexCard
                 Grid.Column="0"
-                Margin="10,0"
+                Margin="0 0 5 0"
                 DataContext="{Binding Apple}" />
             <local:CompanyIndexCard
                 Grid.Column="1"
-                Margin="10,0"
+                Margin="5 0"
                 DataContext="{Binding Amazon}" />
             <local:CompanyIndexCard
                 Grid.Column="2"
-                Margin="10,0"
+                Margin="10 0 0 0"
                 DataContext="{Binding Google}" />
         </Grid>
     </Grid>
