@@ -10,6 +10,7 @@ using SimpleTrader.EntityFramework;
 using SimpleTrader.EntityFramework.Services;
 using SimpleTrader.FinancialModelingPrepAPI.Services;
 using SimpleTrader.WPF.State.Accounts;
+using SimpleTrader.WPF.State.Assets;
 using SimpleTrader.WPF.State.Authenticators;
 using SimpleTrader.WPF.State.Navigators;
 using SimpleTrader.WPF.ViewModels;
@@ -68,14 +69,16 @@ namespace SimpleTrader.WPF
             services.AddSingleton<INavigator, Navigator>();
             services.AddSingleton<IAuthenticator, Authenticator>();
             services.AddSingleton<IAccountStore, AccountStore>();
+            services.AddSingleton<AssetStore>();
 
             //We Want to register as much as possible with our Dependency Injection Container
             services.AddSingleton<ISimpleTraderViewModelFactory, SimpleTraderViewModelFactory>();
             services.AddSingleton<BuyViewModel>(); 
             services.AddSingleton<PortfolioViewModel>();
+            services.AddSingleton<AssetSummaryViewModel>();
             services.AddSingleton<HomeViewModel>(serviceProvider => new HomeViewModel(
-                MajorIndexListingViewModel.LoadMajorIndexViewModel(
-                    serviceProvider.GetRequiredService<IMajorIndexService>())));
+                MajorIndexListingViewModel.LoadMajorIndexViewModel(serviceProvider.GetRequiredService<IMajorIndexService>()),
+                serviceProvider.GetRequiredService<AssetSummaryViewModel>()));
 
             services.AddSingleton<CreateViewModel<HomeViewModel>>((serviceProvider) =>
             {

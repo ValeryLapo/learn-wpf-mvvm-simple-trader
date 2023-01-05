@@ -10,6 +10,7 @@ namespace SimpleTrader.WPF.State.Assets
     {
         private readonly IAccountStore _accountStore;
 
+        public event Action StateChanged;
         public double AccountBalance => _accountStore.CurrentAccount?.Balance ?? 0;
 
         public IEnumerable<AssetTransaction> AssetTransactions =>
@@ -17,6 +18,12 @@ namespace SimpleTrader.WPF.State.Assets
         public AssetStore(IAccountStore accountStore)
         {
             _accountStore = accountStore;
+            _accountStore.StateChanged += OnStateChanged;
+        }
+
+        private void OnStateChanged()
+        {
+            StateChanged?.Invoke();
         }
     }
 }
