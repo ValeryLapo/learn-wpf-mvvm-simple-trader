@@ -28,6 +28,10 @@
                 <views:LoginView LoginCommand="{Binding LoginCommand}" />
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModels:RegisterViewModel}">
+                <views:RegisterView />
+            </DataTemplate>
+
         </ResourceDictionary>
 
     </Application.Resources>

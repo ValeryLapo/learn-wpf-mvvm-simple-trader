@@ -50,7 +50,6 @@ namespace SimpleTrader.WPF
                     services.AddSingleton<IAuthenticationService, AuthenticationService>();
                     services.AddSingleton<IDataService<Account>, AccountDataService>();
                     services.AddSingleton<IAccountService, AccountDataService>();
-                    services.AddSingleton<SimpleTraderDbContextFactory>();
                     services.AddSingleton<IBuyStockService, BuyStockService>();
                     services.AddSingleton<IMajorIndexService, MajorIndexService>();
 
@@ -89,12 +88,19 @@ namespace SimpleTrader.WPF
                         return () => serviceProvider.GetRequiredService<BuyViewModel>();
                     });
 
+                    services.AddSingleton<CreateViewModel<RegisterViewModel>>(serviceProvider =>
+                    {
+                        return () => new RegisterViewModel();
+                    });
+
                     services.AddSingleton<ViewModelRenavigator<HomeViewModel>>();
+                    services.AddSingleton<ViewModelRenavigator<RegisterViewModel>>();
                     services.AddSingleton<CreateViewModel<LoginViewModel>>(serviceProvider =>
                     {
                         return () => new LoginViewModel(
                             serviceProvider.GetRequiredService<IAuthenticator>(),
-                            serviceProvider.GetRequiredService<ViewModelRenavigator<HomeViewModel>>());
+                            serviceProvider.GetRequiredService<ViewModelRenavigator<HomeViewModel>>(),
+                            serviceProvider.GetRequiredService<ViewModelRenavigator<RegisterViewModel>>());
                     });
                     services.AddScoped<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>()));
                 });
