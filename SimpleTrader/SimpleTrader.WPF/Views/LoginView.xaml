@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SimpleTrader.WPF.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:components="clr-namespace:PasswordBoxMVVM.Components;assembly=PasswordBoxMVVM"
     d:DesignHeight="450"
     d:DesignWidth="800"
     FontSize="24"
@@ -82,10 +83,10 @@
                         <ColumnDefinition Width="300" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Grid.Column="0" Text="Password" />
-                    <PasswordBox
-                        Name="pbPassword"
+                    <components:BindablePasswordBox
                         Grid.Column="1"
-                        Margin="20,0,0,0" />
+                        Margin="20,0,0,0"
+                        Password="{Binding Password}"/>
                 </Grid>
 
                 <Button
@@ -94,7 +95,7 @@
                     Margin="10"
                     IsDefault="True"
                     HorizontalAlignment="Center"
-                    Click="Login_CLick"
+                    Command="{Binding LoginCommand}"
                     Content="Login" />
                 <Button
                     Grid.Row="3"
@@ -102,6 +103,7 @@
                     Margin="0 10 0 0"
                     Background="Transparent"
                     Foreground="Blue"
+                    FontSize="14"
                     HorizontalAlignment="Center"
                     Command="{Binding ViewRegisterCommand}"
                     Content="Do not have an account yet?"/>

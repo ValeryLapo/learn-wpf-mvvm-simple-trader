@@ -58,7 +58,6 @@ namespace SimpleTrader.WPF
                     //The reason we not making it singleton because ViewModel has state
                     //It keeps track of things. 
                     services.AddScoped<MainViewModel>();
-                    services.AddScoped<BuyViewModel>();
                     services.AddSingleton<INavigator, Navigator>();
                     services.AddSingleton<IAuthenticator, Authenticator>();
                     services.AddSingleton<IAccountStore, AccountStore>();
@@ -88,9 +87,12 @@ namespace SimpleTrader.WPF
                         return () => serviceProvider.GetRequiredService<BuyViewModel>();
                     });
 
+                    services.AddSingleton<ViewModelRenavigator<LoginViewModel>>();
                     services.AddSingleton<CreateViewModel<RegisterViewModel>>(serviceProvider =>
                     {
-                        return () => new RegisterViewModel();
+                        return () => new RegisterViewModel(serviceProvider.GetRequiredService<IAuthenticator>(),
+                            serviceProvider.GetRequiredService<ViewModelRenavigator<LoginViewModel>>(),
+                            serviceProvider.GetRequiredService<ViewModelRenavigator<LoginViewModel>>());
                     });
 
                     services.AddSingleton<ViewModelRenavigator<HomeViewModel>>();

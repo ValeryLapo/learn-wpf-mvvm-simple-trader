@@ -18,6 +18,17 @@ namespace SimpleTrader.WPF.ViewModels
             }
         }
 
+        private string _password;
+        public string Password
+        {
+            get => _password;
+            set
+            {
+                _password = value;
+                OnPropertyChanged(nameof(Password));
+            }
+        }
+
         public ICommand LoginCommand { get; }
         public ICommand ViewRegisterCommand { get; }
 
