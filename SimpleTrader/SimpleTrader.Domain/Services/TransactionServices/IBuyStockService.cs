@@ -1,6 +1,7 @@
 ﻿using SimpleTrader.Domain.Models;
 using SimpleTrader.Domain.Exceptions;
 using System.Threading.Tasks;
+using System;
 
 namespace SimpleTrader.Domain.Services.TransactionServices
 {

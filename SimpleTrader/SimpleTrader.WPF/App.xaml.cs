@@ -18,6 +18,7 @@ using SimpleTrader.WPF.ViewModels;
 using SimpleTrader.WPF.ViewModels.Factories;
 using System;
 using System.Windows;
+using System.Windows.Media;
 
 namespace SimpleTrader.WPF
 {
@@ -51,6 +52,7 @@ namespace SimpleTrader.WPF
                     services.AddSingleton<IDataService<Account>, AccountDataService>();
                     services.AddSingleton<IAccountService, AccountDataService>();
                     services.AddSingleton<IBuyStockService, BuyStockService>();
+                    services.AddSingleton<ISellStockService, SellStockService>();
                     services.AddSingleton<IMajorIndexService, MajorIndexService>();
 
                     services.AddSingleton<IPasswordHasher<string>, PasswordHasher<string>>();
