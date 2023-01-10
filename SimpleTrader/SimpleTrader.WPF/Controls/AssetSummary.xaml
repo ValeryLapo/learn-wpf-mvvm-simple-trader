@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:SimpleTrader.WPF.Controls"
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
@@ -43,43 +44,12 @@
                 FontSize="18"
                 Text="TopAssets" />
 
-            <ListView
-                Grid.Row="1"
+            <local:AssetListing
+                DataContext="{Binding AssetListingViewModel}"
                 Margin="0,10,0,0"
-                BorderThickness="0"
-                FontSize="14"
-                ItemsSource="{Binding TopAssets}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn DisplayMemberBinding="{Binding Symbol}" Header="Symbol" />
-                        <GridViewColumn DisplayMemberBinding="{Binding Shares}" Header="Shares" />
-                        <GridView.ColumnHeaderContainerStyle>
-                            <Style TargetType="GridViewColumnHeader">
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="GridViewColumnHeader">
-                                            <Border
-                                                Padding="0,5,50,5"
-                                                BorderBrush="Gray"
-                                                BorderThickness="0,0,0,1">
-                                                <TextBlock Text="{TemplateBinding Content}" />
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </GridView.ColumnHeaderContainerStyle>
-                    </GridView>
-                </ListView.View>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="Focusable" Value="False" />
-                        <Setter Property="IsHitTestVisible" Value="False" />
-                        <Setter Property="Margin" Value="0,5" />
-                        <Setter Property="Foreground" Value="Black" />
-                    </Style>
-                </ListView.ItemContainerStyle>
-            </ListView>
+                Grid.Row="1"
+                FontSize="14"/>
+
         </Grid>
     </Grid>
 </UserControl>
