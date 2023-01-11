@@ -43,9 +43,10 @@ namespace SimpleTrader.WPF
                 })
                 .ConfigureServices((context, services) =>
                 {
-                    string connectionString = context.Configuration.GetConnectionString("default");
-                    services.AddDbContext<SimpleTraderDbContext>(o => o.UseSqlServer(connectionString));
-                    services.AddSingleton(new SimpleTraderDbContextFactory(connectionString));
+                    string connectionString = context.Configuration.GetConnectionString("sqlite");
+                    Action<DbContextOptionsBuilder> configureDbcontext =  o => o.UseSqlite(connectionString);
+                    services.AddDbContext<SimpleTraderDbContext>(configureDbcontext);
+                    services.AddSingleton(new SimpleTraderDbContextFactory(configureDbcontext));
 
                     services.AddSingleton<IStockPriceService, StockPriceService>();
                     services.AddSingleton<IAuthenticationService, AuthenticationService>();
@@ -126,6 +127,12 @@ namespace SimpleTrader.WPF
             //MainWindow window = serviceProvider.GetRequiredService<MainWindow>();
             _host.Start();
 
+            SimpleTraderDbContextFactory contextFactory =
+                _host.Services.GetRequiredService<SimpleTraderDbContextFactory>();
+            using (SimpleTraderDbContext context = contextFactory.CreateDbContext())
+            {
+                context.Database.Migrate();
+            }
             Window window = _host.Services.GetRequiredService<MainWindow>();
             window.Show();
 
