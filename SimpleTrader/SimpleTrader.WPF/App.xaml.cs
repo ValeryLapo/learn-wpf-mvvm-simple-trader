@@ -69,6 +69,7 @@ namespace SimpleTrader.WPF
                     //We Want to register as much as possible with our Dependency Injection Container
                     services.AddSingleton<ISimpleTraderViewModelFactory, SimpleTraderViewModelFactory>();
                     services.AddSingleton<BuyViewModel>();
+                    services.AddSingleton<SellViewModel>();
                     services.AddSingleton<PortfolioViewModel>();
                     services.AddSingleton<AssetSummaryViewModel>();
                     services.AddSingleton<HomeViewModel>(serviceProvider => new HomeViewModel(
@@ -88,6 +89,11 @@ namespace SimpleTrader.WPF
                     services.AddSingleton<CreateViewModel<BuyViewModel>>(serviceProvider =>
                     {
                         return () => serviceProvider.GetRequiredService<BuyViewModel>();
+                    });
+
+                    services.AddSingleton<CreateViewModel<SellViewModel>>(serviceProvider =>
+                    {
+                        return () => serviceProvider.GetRequiredService<SellViewModel>();
                     });
 
                     services.AddSingleton<ViewModelRenavigator<LoginViewModel>>();

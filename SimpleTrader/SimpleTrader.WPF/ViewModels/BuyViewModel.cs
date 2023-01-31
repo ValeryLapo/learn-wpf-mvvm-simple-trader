@@ -6,7 +6,7 @@ using System.Windows.Input;
 
 namespace SimpleTrader.WPF.ViewModels
 {
-    public class BuyViewModel : ViewModelBase
+    public class BuyViewModel : ViewModelBase, ISearchSymbolViewModel
     {
         public BuyViewModel(IStockPriceService stockPriveService, IBuyStockService buyStockService, IAccountStore accountStore)
         {
