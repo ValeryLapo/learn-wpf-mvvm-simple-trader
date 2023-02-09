@@ -27,7 +27,8 @@ namespace SimpleTrader.WPF
                 .AddServices()
                 .AddStores()
                 .AddViewModels()
-                .AddViews();
+                .AddViews()
+                .AddFinanceAPI();
         }
         protected override void OnStartup(StartupEventArgs e)
         {

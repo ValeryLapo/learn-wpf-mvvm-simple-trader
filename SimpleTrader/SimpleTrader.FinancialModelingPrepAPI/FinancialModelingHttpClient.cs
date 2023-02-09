@@ -3,21 +3,23 @@ using SimpleTrader.Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace SimpleTrader.FinancialModelingPrepAPI
 {
-    public class FinancialModelingHttpClient : HttpClient
+    public class FinancialModelingHttpClient
     {
-        public FinancialModelingHttpClient()
+        private readonly HttpClient _client;
+        public FinancialModelingHttpClient(HttpClient client)
         {
-            this.BaseAddress = new Uri("https://financialmodelingprep.com/api/v3/");
+            _client = client;
         }
 
         public async Task<T> GetAsync<T>(string uri)
         {
             HttpResponseMessage response =
-                await GetAsync(string.Concat(uri));
+                await _client.GetAsync(string.Concat(uri));
 
 
             string jsonResponse = await response.Content.ReadAsStringAsync();
