@@ -91,5 +91,13 @@ namespace SimpleTrader.WPF.ViewModels
         {
             set => StatusMessageViewModel.Message = value;
         }
+
+        public override void Dispose()
+        {
+            AssetListingViewModel.Dispose();
+            StatusMessageViewModel.Dispose();
+            ErrorMessageViewModel.Dispose();
+            base.Dispose();
+        }
     }
 }

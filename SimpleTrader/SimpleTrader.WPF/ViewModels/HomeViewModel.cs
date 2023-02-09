@@ -1,4 +1,6 @@
-﻿namespace SimpleTrader.WPF.ViewModels
+﻿using SimpleTrader.WPF.State.Assets;
+
+namespace SimpleTrader.WPF.ViewModels
 {
     public class HomeViewModel : ViewModelBase
     {
@@ -8,6 +10,13 @@
         {
             MajorIndexListingViewModel = majorIndexListingViewModel;
             AssetSummaryViewModel = assetSummaryViewModel;
+        }
+
+        public override void Dispose()
+        {
+            AssetSummaryViewModel.Dispose();
+            MajorIndexListingViewModel.Dispose();
+            base.Dispose();
         }
 
 

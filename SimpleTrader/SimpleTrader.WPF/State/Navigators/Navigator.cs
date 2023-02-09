@@ -14,6 +14,7 @@ namespace SimpleTrader.WPF.State.Navigators
             get => _currentViewModel;
             set
             {
+                _currentViewModel?.Dispose();
                 _currentViewModel = value;
                 StateChanged?.Invoke();
             }

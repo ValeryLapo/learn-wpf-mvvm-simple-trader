@@ -29,6 +29,10 @@ namespace SimpleTrader.WPF.ViewModels
             ResetAssets();
         }
 
+        ~AssetListingViewModel()
+        {
+        }
+
         private void AssetStore_StateChanged()
         {
             ResetAssets();
@@ -43,11 +47,28 @@ namespace SimpleTrader.WPF.ViewModels
                 .OrderByDescending(a => a.Shares);
 
             assetViewModels = _filterAssets(assetViewModels);
+
+            DisposeAssets();
             _assets.Clear();
             foreach (var assetViewModel in assetViewModels)
             {
                 _assets.Add(assetViewModel);
             }
+        }
+
+        private void DisposeAssets()
+        {
+            foreach (var assetViewModel in _assets)
+            {
+                assetViewModel.Dispose();
+            }
+        }
+
+        public override void Dispose()
+        {
+            _assetStore.StateChanged -= AssetStore_StateChanged;
+            DisposeAssets();
+            base.Dispose();
         }
     }
 }
