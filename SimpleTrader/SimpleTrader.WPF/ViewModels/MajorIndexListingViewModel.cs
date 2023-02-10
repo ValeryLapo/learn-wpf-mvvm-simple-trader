@@ -1,12 +1,13 @@
-﻿using SimpleTrader.Domain.Models;
+﻿using System.Threading.Tasks;
+using System.Windows.Input;
+using SimpleTrader.Domain.Models;
 using SimpleTrader.Domain.Services;
+using SimpleTrader.WPF.Commands;
 
 namespace SimpleTrader.WPF.ViewModels
 {
     public class MajorIndexListingViewModel : ViewModelBase
     {
-        private readonly IMajorIndexService _majorIndexService;
-
         private MajorIndex _apple;
         public MajorIndex Apple
         {
@@ -41,40 +42,32 @@ namespace SimpleTrader.WPF.ViewModels
             }
         }
 
+        private bool _isLoading = false;
+        public bool IsLoading
+        {
+            get => _isLoading;
+            set
+            {
+                _isLoading = value;
+                OnPropertyChanged(nameof(IsLoading));
+            }
+        }
+
+        public ICommand LoadMajorIndexesCommand { get; }
         public MajorIndexListingViewModel(IMajorIndexService majorIndexService)
         {
-            _majorIndexService = majorIndexService;
+            LoadMajorIndexesCommand = new LoadMajorIndexesCommand(this, majorIndexService);
         }
 
         public static MajorIndexListingViewModel LoadMajorIndexViewModel(IMajorIndexService majorIndexService)
         {
             MajorIndexListingViewModel majorIndexViewModel = new MajorIndexListingViewModel(majorIndexService);
-            majorIndexViewModel.LoadMajorIndexes();
+
+            majorIndexViewModel.LoadMajorIndexesCommand.Execute(null);
+
             return majorIndexViewModel;
         }
-        private void LoadMajorIndexes()
-        {
-            _majorIndexService.GetMajorIndex(MajorIndexType.Apple).ContinueWith(task =>
-            {
-                if (task.Exception == null)
-                {
-                    Apple = task.Result;
-                }
-            });
-            _majorIndexService.GetMajorIndex(MajorIndexType.Amazon).ContinueWith(task =>
-            {
-                if (task.Exception == null)
-                {
-                    Amazon = task.Result;
-                }
-            });
-            _majorIndexService.GetMajorIndex(MajorIndexType.Google).ContinueWith(task =>
-            {
-                if (task.Exception == null)
-                {
-                    Google = task.Result;
-                }
-            });
-        }
+
+
     }
 }
