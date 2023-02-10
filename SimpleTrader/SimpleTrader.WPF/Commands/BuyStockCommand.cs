@@ -4,6 +4,7 @@ using SimpleTrader.Domain.Services.TransactionServices;
 using SimpleTrader.WPF.State.Accounts;
 using SimpleTrader.WPF.ViewModels;
 using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -21,6 +22,21 @@ namespace SimpleTrader.WPF.Commands
             _buyViewModel = buyViewModel;
             _buyStockService = buyStockService;
             _accountStore = accountStore;
+
+            _buyViewModel.PropertyChanged += BuyViewModelOnPropertyChanged;
+        }
+
+        private void BuyViewModelOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(BuyViewModel.CanBuyStock))
+            {
+                OnCanExecuteChanged();
+            }
+        }
+
+        public override bool CanExecute(object parameter)
+        {
+            return _buyViewModel.CanBuyStock && base.CanExecute(parameter);
         }
 
         public override async Task ExecuteAsync(object parameter)

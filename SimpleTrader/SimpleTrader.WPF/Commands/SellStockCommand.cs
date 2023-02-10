@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
 using SimpleTrader.Domain.Exceptions;
@@ -20,9 +21,21 @@ namespace SimpleTrader.WPF.Commands
             _viewModel = viewModel;
             _sellStockService = sellStockService;
             _accountStore = accountStore;
+
+            _viewModel.PropertyChanged += BuyViewModelOnPropertyChanged;
         }
 
-
+        private void BuyViewModelOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(SellViewModel.CanSellStock))
+            {
+                OnCanExecuteChanged();
+            }
+        }
+        public override bool CanExecute(object parameter)
+        {
+            return _viewModel.CanSellStock && base.CanExecute(parameter);
+        }
 
         public override async Task ExecuteAsync(object parameter)
         {

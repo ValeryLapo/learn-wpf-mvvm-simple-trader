@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -14,10 +15,15 @@ namespace SimpleTrader.WPF.Commands
             set
             {
                 _isExecuting = value;
-                CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+                OnCanExecuteChanged();
             }
         }
-        public bool CanExecute(object parameter)
+
+        protected void OnCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        }
+        public virtual bool CanExecute(object parameter)
         {
             return !IsExecuting;
         }

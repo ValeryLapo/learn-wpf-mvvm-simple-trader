@@ -2,8 +2,7 @@
 using SimpleTrader.WPF.State.Navigators;
 using SimpleTrader.WPF.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using SimpleTrader.Domain.Services.AuthenticationServices;
 
@@ -16,6 +15,21 @@ namespace SimpleTrader.WPF.Commands
             _registerViewModel = registerViewModel;
             _authenticator = authenticator;
             _registerRenavigator = registerRenavigator;
+
+            _registerViewModel.PropertyChanged += RegisterViewModelOnPropertyChanged;
+        }
+
+        private void RegisterViewModelOnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(RegisterViewModel.CanRegister))
+            {
+                OnCanExecuteChanged();
+            }
+        }
+
+        public override bool CanExecute(object parameter)
+        {
+            return _registerViewModel.CanRegister && base.CanExecute(parameter);
         }
 
         private readonly RegisterViewModel _registerViewModel;
